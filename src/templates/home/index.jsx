@@ -11,7 +11,7 @@ export class Home extends React.Component {
     plans: [],
     allPlans: [],
     page: 0,
-    itemsPerPage: 6,
+    itemsPerPage: 12,
     searchValue: "",
   };
 
