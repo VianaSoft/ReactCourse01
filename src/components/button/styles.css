@@ -1,0 +1,25 @@
+.button {
+  width: 100%;
+  color: #fff;
+  padding: 15px 30px;
+  text-align: center;
+  border: none;
+  background: radial-gradient(circle, #4169e1, #0000cd);
+  cursor: pointer;
+}
+
+.button:hover {
+  width: 100%;
+  color: #fff;
+  padding: 15px 30px;
+  text-align: center;
+  border: none;
+  background: radial-gradient(circle, #4169e1, #3535dd);
+  cursor: pointer;
+}
+
+.button:disabled {
+  color: #fff;
+  background: radial-gradient(circle, #888, #555);
+  cursor: not-allowed;
+}

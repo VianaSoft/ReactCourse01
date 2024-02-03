@@ -1,0 +1,16 @@
+input[type="search"] {
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  border: 1.5px solid #0000cd;
+  color: #000;
+  width: 250px;
+  height: 30px;
+  padding-left: 10px;
+}
+
+input::placeholder {
+  font-weight: bold;
+  opacity: 0.5;
+  color: #000;
+}

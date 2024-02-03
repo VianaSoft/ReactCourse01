@@ -1,0 +1,29 @@
+.plan {
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: transform 100ms ease-in-out;
+}
+
+.plan:hover {
+  transform: scale(1.03);
+}
+
+.plan-title {
+  color: #fff;
+  padding: 5px;
+  text-align: center;
+  background: radial-gradient(circle, #4169e1, #0000cd);
+}
+
+.plan-content {
+  padding: 20px;
+  display: flex;
+}
+.plan-content-e {
+  flex: 0 0 65%; /* 80% de largura, sem crescimento ou encolhimento */
+  align-self: flex-start; /* alinhado à esquerda */
+}
+.plan-content-d {
+  flex: 0 0 40%; /* 80% de largura, sem crescimento ou encolhimento */
+  align-self: flex-end; /* alinhado à esquerda */
+}
