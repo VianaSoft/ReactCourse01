@@ -20,10 +20,10 @@
   display: flex;
 }
 .plan-content-e {
-  flex: 0 0 65%; /* 80% de largura, sem crescimento ou encolhimento */
+  flex: 0 0 60%; /* 80% de largura, sem crescimento ou encolhimento */
   align-self: flex-start; /* alinhado à esquerda */
 }
 .plan-content-d {
-  flex: 0 0 40%; /* 80% de largura, sem crescimento ou encolhimento */
+  flex: 0 0 45%; /* 80% de largura, sem crescimento ou encolhimento */
   align-self: flex-end; /* alinhado à esquerda */
 }

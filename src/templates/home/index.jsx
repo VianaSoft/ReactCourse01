@@ -1,88 +1,66 @@
-import React from "react";
-import "./styles.css";
+import React, { useCallback, useEffect, useState } from 'react';
 
-import { Plans } from "../../components/plans";
-import { loadPlans } from "../../utils/load-plans";
-import { Button } from "../../components/button";
-import { TextInput } from "../../components/textInput";
+import './styles.css';
 
-export class Home extends React.Component {
-  state = {
-    plans: [],
-    allPlans: [],
-    page: 0,
-    itemsPerPage: 12,
-    searchValue: "",
-  };
+import { Plans } from '../../components/plans';
+import { loadPlans } from '../../utils/load-plans';
+import { Button } from '../../components/button';
+import { TextInput } from '../../components/textInput';
 
-  async componentDidMount() {
-    await this.loadPlans();
-  }
+export const Home = () => {
+  const [plans, setPlans] = useState([]);
+  const [allPlans, setAllPlans] = useState([]);
+  const [page, setPage] = useState(0);
+  const [itemsPerPage] = useState(6);
+  const [searchValue, setSearchValue] = useState('');
 
-  loadPlans = async () => {
-    const { page, itemsPerPage } = this.state;
-
+  const handleLoadPlans = useCallback(async (page, itemsPerPage) => {
     const plans = await loadPlans();
-    this.setState({
-      plans: plans.slice(page, itemsPerPage),
-      allPlans: plans,
-    });
-  };
 
-  loadMorPlans = () => {
-    const { page, itemsPerPage, allPlans, plans } = this.state;
+    setPlans(plans.slice(page, itemsPerPage));
+    setAllPlans(plans);
+  }, []);
+
+  useEffect(() => {
+    handleLoadPlans(0, itemsPerPage);
+  }, [handleLoadPlans, itemsPerPage]);
+
+  const loadMorPlans = () => {
     const nextPage = page + itemsPerPage;
     const nextPlans = allPlans.slice(nextPage, nextPage + itemsPerPage);
-
     plans.push(...nextPlans);
-    this.setState({ plans, page: nextPage });
 
-    console.log(page, itemsPerPage, nextPage, nextPage + itemsPerPage);
+    setPlans(plans);
+    setPage(nextPage);
   };
 
-  handleChange = (e) => {
+  const handleChange = (e) => {
     const { value } = e.target;
-
-    this.setState({ searchValue: value });
+    setSearchValue(value);
   };
 
-  render() {
-    const { plans, page, itemsPerPage, allPlans, searchValue } = this.state;
-    const noMorePlans = page + itemsPerPage >= allPlans.length;
-    const filteredPlans = !!searchValue
-      ? allPlans.filter((plan) => {
-          return plan?.Name?.toLowerCase().includes(searchValue.toLowerCase());
-        })
-      : plans;
+  const noMorePlans = page + itemsPerPage >= allPlans.length;
+  const filteredPlans = searchValue
+    ? allPlans.filter((plan) => {
+        return plan.Name.toLowerCase().includes(searchValue.toLowerCase());
+      })
+    : plans;
 
-    return (
-      <section className="container">
-        <div className="input-container">
-          {!!searchValue && (
-            <>
-              <h3>Search: {searchValue}</h3>
-            </>
-          )}
+  return (
+    <section className="container">
+      <div className="search-container">
+        {!!searchValue && <h3>Search: {searchValue}</h3>}
 
-          <TextInput actionFn={this.handleChange} inputValue={searchValue} />
-        </div>
+        <TextInput searchValue={searchValue} handleChange={handleChange} />
+      </div>
 
-        {filteredPlans.length > 0 ? (
-          <Plans plans={filteredPlans} />
-        ) : (
-          <p>Registro(s) não encontrado.</p>
-        )}
+      {filteredPlans.length > 0 && <Plans plans={filteredPlans} />}
 
-        <div className="button-container">
-          {!searchValue && (
-            <Button
-              text="Load More Plans"
-              actionFn={this.loadMorPlans}
-              disabled={noMorePlans}
-            />
-          )}
-        </div>
-      </section>
-    );
-  }
-}
+      {filteredPlans.length === 0 && <p>Registro(s) não encontrado.</p>}
+
+      <div className="button-container">
+        {!searchValue && <Button text="Load More Plans" onClick={loadMorPlans} disabled={noMorePlans} />}
+      </div>
+    </section>
+  );
+};

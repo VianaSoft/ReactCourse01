@@ -1,17 +1,23 @@
-import "./styles.css";
+import P from 'prop-types';
+import './styles.css';
 
-export const PlanCard = (props) => {
-  const plan = props;
-
-  let PTEuro = new Intl.NumberFormat("pt-PT", {
-    style: "currency",
-    currency: "EUR",
-  });
-
+export const PlanCard = function ({
+  id,
+  name,
+  timeType,
+  planType,
+  displayHome,
+  maxAdvert,
+  maxPhoto,
+  maxVideo,
+  priority,
+  timeRange,
+  total,
+}) {
   return (
-    <div className="plan">
+    <div key={id} className="plan">
       <div className="plan-title">
-        <strong>{plan.name}</strong>
+        <strong>{name}</strong>
       </div>
       <div className="plan-content">
         <div className="plan-content-e">
@@ -21,39 +27,50 @@ export const PlanCard = (props) => {
           <p>Fotos</p>
           <p>Vídeos</p>
           <p>Prioridade</p>
-          <p>Duração {plan.timeType.Name}</p>
+          <p>Duração {timeType}</p>
           <p>Preço (mês)</p>
         </div>
         <div className="plan-content-d">
           <p>
-            <strong>{plan.planType.Name}</strong>
+            <strong>{planType}</strong>
           </p>
           <p>
-            <strong>{plan.displayHome ? "Sim" : "Não"}</strong>
+            <strong>{displayHome ? 'Sim' : 'Não'}</strong>
           </p>
           <p>
-            <strong>{plan.maxAdvert}</strong>
+            <strong>{maxAdvert}</strong>
           </p>
           <p>
-            <strong>{plan.maxPhoto}</strong>
+            <strong>{maxPhoto}</strong>
           </p>
           <p>
-            <strong>{plan.maxVideo}</strong>
+            <strong>{maxVideo}</strong>
           </p>
           <p>
-            <strong>{plan.priority}</strong>
+            <strong>{priority}</strong>
           </p>
           <p>
-            <strong>{plan.timeRange}</strong>
+            <strong>{timeRange}</strong>
           </p>
           <p>
-            <strong>
-              {PTEuro.format(plan.total)}
-              {"+IVA"}
-            </strong>
+            <strong>{total.toLocaleString('pt-PT', { style: 'currency', currency: 'EUR' })}+IVA</strong>
           </p>
         </div>
       </div>
     </div>
   );
+};
+
+PlanCard.propTypes = {
+  id: P.string.isRequired,
+  name: P.string.isRequired,
+  timeType: P.string.isRequired,
+  planType: P.string.isRequired,
+  displayHome: P.bool.isRequired,
+  maxAdvert: P.number.isRequired,
+  maxPhoto: P.number.isRequired,
+  maxVideo: P.number.isRequired,
+  priority: P.number.isRequired,
+  timeRange: P.number.isRequired,
+  total: P.number,
 };

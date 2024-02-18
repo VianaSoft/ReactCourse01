@@ -1,0 +1,16 @@
+export const planCardPropsMock = {
+  id: '7c6c51ad-53bb-4e0b-8100-51e2920ce4e8',
+  name: 'Free',
+  displayHome: false,
+  maxHome: 0,
+  maxAdvert: 1,
+  maxPhoto: 6,
+  maxVideo: 0,
+  priority: 18,
+  timeRange: 7,
+  price: 0.0,
+  total: 0.0,
+  planType: 'Individual',
+  timeType: 'Dia(s)',
+  isEnable: true,
+};
